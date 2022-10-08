@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CursoCtrl;
@@ -15,7 +17,10 @@ use App\Http\Controllers\CursoCtrl;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', function () {
+    return view('VistasAuth/Login');
+});
+
 
 /*
 Route::get('cursos', [CursoCtrl::class, 'index']);
@@ -29,3 +34,13 @@ Route::controller(CursoCtrl::class)->group(function(){
     Route::get('cursos/create', 'create');
     Route::get('cursos/{curso}', 'show');
 });
+
+
+Route::get('Login',[AuthController::class,'login'])
+->name('Login');
+Route::post('Login',[AuthController::class,'loginStore'])
+     ->name('LoginStore');
+Route::get('Dashboard',[AuthController::class,'dashboard'])
+     ->name('Dashboard');
+Route::post('Logout',[AuthController::class,'logout'])
+     ->name('Logout');
