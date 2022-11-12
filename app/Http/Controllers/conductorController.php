@@ -31,13 +31,7 @@ class ConductorController extends Controller
         ->orwhere('apellido', 'LIKE', '%'.$texto.'%')
         ->orwhere('ci', 'LIKE', '%'.$texto.'%')
         ->orwhere('telefono', 'LIKE', '%'.$texto.'%')->get();
-       
-        // 
-        // ->orwhere('apellido', 'LIKE', '%'.$texto.'%')->get();
-       
-
-
-        
+             
         return view('conductor.index', ['conductors' => $conductors, 'texto' => $texto]);
     }
 

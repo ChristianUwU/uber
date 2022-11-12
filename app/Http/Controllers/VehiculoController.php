@@ -25,8 +25,14 @@ class VehiculoController extends Controller
         $carros = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
             ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
             ->join('users as u', 'u.id', '=', 'c.user_id')
+            ->Where('nombre', 'LIKE', '%'.$texto.'%')
+            ->orwhere('marca', 'LIKE', '%'.$texto.'%')
+            ->orwhere('modelo', 'LIKE', '%'.$texto.'%')
+            ->orwhere('anio', 'LIKE', '%'.$texto.'%')
+            ->orwhere('estado', 'LIKE', '%'.$texto.'%')
             ->select('vehiculos.*', 'u.nombre as propietario')->get();
-        // dd($carros);
+           
+        
         return view('VistaVehiculos.index',  ['carros' => $carros, 'texto' => $texto]);
     }
 

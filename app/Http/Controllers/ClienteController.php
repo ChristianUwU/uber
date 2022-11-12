@@ -29,7 +29,7 @@ class ClienteController extends Controller
                 ->orwhere('telefono', 'LIKE', '%'.$texto.'%') 
                 ->orderBy('apellido', 'asc')
                 ->paginate(10);
-                //->paginate(10);
+                
 
 
             
