@@ -18,14 +18,16 @@ class VehiculoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $texto = trim($request->texto);
+
         $carros = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
             ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
             ->join('users as u', 'u.id', '=', 'c.user_id')
             ->select('vehiculos.*', 'u.nombre as propietario')->get();
         // dd($carros);
-        return view('VistaVehiculos.index', compact('carros'));
+        return view('VistaVehiculos.index',  ['carros' => $carros, 'texto' => $texto]);
     }
 
     /**

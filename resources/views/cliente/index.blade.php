@@ -23,7 +23,20 @@
     </div>
 
 
-    
+    {{-- Buscador --}}
+
+    <div class="grid p-2">
+        <div class="grid-cols-12">
+            <form action="{{ route('conductor.index') }}" method="GET">
+                <input type="text" class="w-1/2 mr-5 rounded-lg border-stone-900" name="texto" value="{{ $texto }}">
+                <div class="inline p-2 bg-cyan-500  hover:bg-cyan-400 font-bold rounded-md text-lg">
+                    <input type="submit" class="pr-2" value="Buscar">
+                    <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <div class="overflow-x-auto relative">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

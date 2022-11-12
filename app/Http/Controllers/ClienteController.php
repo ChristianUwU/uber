@@ -17,14 +17,23 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $texto = trim($request->texto);
+
         $clientes = DB::table('users')
                 ->select('nombre', 'apellido', 'telefono')
                 ->join('clientes', 'users.id', '=', 'clientes.user_id')
+                ->Where('nombre', 'LIKE', '%'.$texto.'%')
+                ->orwhere('apellido', 'LIKE', '%'.$texto.'%') 
+                ->orwhere('telefono', 'LIKE', '%'.$texto.'%') 
+                ->orderBy('apellido', 'asc')
                 ->paginate(10);
+                //->paginate(10);
+
+
             
-        return view('cliente.index', ['clientes' => $clientes]);
+        return view('cliente.index', ['clientes' => $clientes, 'texto' => $texto]);
     }
 
     /**

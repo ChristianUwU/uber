@@ -19,6 +19,21 @@
                                     class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Imprimir
                                 </a>
                             </div>
+                            
+                                {{-- Buscador --}}
+
+                            <div class="grid p-2">
+                                <div class="grid-cols-12">
+                                    <form action="{{ route('vehiculo.index') }}" method="GET">
+                                        <input type="text" class="w-1/2 mr-5 rounded-lg border-stone-900" name="texto" value="{{ $texto }}">
+                                        <div class="inline p-2 bg-cyan-500  hover:bg-cyan-400 font-bold rounded-md text-lg">
+                                            <input type="submit" class="pr-2" value="Buscar">
+                                            <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">#</th>

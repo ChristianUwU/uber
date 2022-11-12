@@ -8,6 +8,7 @@ use App\Models\Conductor;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\ConductorsExport;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
@@ -20,10 +21,24 @@ class ConductorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $conductors = Conductor::all();
-        return view('conductor.index', ['conductors' => $conductors]);
+
+    public function index(Request $request)
+
+    {   $texto = trim($request->texto);
+        $conductors = Conductor::join('clientes as c', 'c.id', '=', 'conductors.cliente_id')
+        ->join('users as u', 'u.id', '=', 'c.user_id')
+        ->Where('nombre', 'LIKE', '%'.$texto.'%')
+        ->orwhere('apellido', 'LIKE', '%'.$texto.'%')
+        ->orwhere('ci', 'LIKE', '%'.$texto.'%')
+        ->orwhere('telefono', 'LIKE', '%'.$texto.'%')->get();
+       
+        // 
+        // ->orwhere('apellido', 'LIKE', '%'.$texto.'%')->get();
+       
+
+
+        
+        return view('conductor.index', ['conductors' => $conductors, 'texto' => $texto]);
     }
 
     /**
