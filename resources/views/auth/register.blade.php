@@ -28,10 +28,13 @@
             </div>
 
             <!-- Telefonoo -->
-            <div>
+            <div class="julico591">
                 <x-input-label for="telefono" :value="__('Telefono')" />
 
-                <x-text-input id="telefono" class="block mt-1 w-full" type="number" name="telefono" :value="old('telefono')" required autofocus />
+                <input class="telefono w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                id="telefono" type="number" name="telefono" :value="old('telefono')" required autofocus />
+
+                {{-- <x-text-input id="telefono" class="block mt-1 w-full" type="number" name="telefono" :value="old('telefono')" required autofocus /> --}}
 
                 <x-input-error :messages="$errors->get('telefono')" class="mt-2" />
             </div>

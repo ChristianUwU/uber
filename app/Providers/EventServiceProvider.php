@@ -1,9 +1,29 @@
 <?php
 
 namespace App\Providers;
+<<<<<<< Updated upstream
 
 use App\Events\BVehiculoCreateEvent;
+use App\Events\BVehiculoDestroyEvent;
+use App\Events\BVehiculoEditEvent;
 use App\Listeners\BVehiculoCreateListener;
+use App\Listeners\BVehiculoDestroyListener;
+use App\Listeners\BVehiculoEditListener;
+=======
+//////////////////////////////////////////
+use App\Events\BClienteCreateEvent;
+use App\Listeners\BClienteCreateListener;
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+>>>>>>> Stashed changes
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,8 +40,20 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+<<<<<<< Updated upstream
         BVehiculoCreateEvent::class => [
             BVehiculoCreateListener::class,
+        ],
+        BVehiculoDestroyEvent::class => [
+            BVehiculoDestroyListener::class,
+        ],
+        BVehiculoEditEvent::class => [
+            BVehiculoEditListener::class,
+=======
+        //conexion de evento y listener de bitacora cliente create by Julico
+        BClienteCreateEvent::class =>[
+            BClienteCreateListener::class,
+>>>>>>> Stashed changes
         ],
     ];
 

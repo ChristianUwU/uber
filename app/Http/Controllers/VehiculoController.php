@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Events\BVehiculoCreateEvent;
+use App\Events\BVehiculoDestroyEvent;
+use App\Events\BVehiculoEditEvent;
+use App\Models\Bitacora;
+use App\Models\BitacoraVehiculo;
 use App\Models\Conductor;
 use App\Models\User;
 use App\Models\Vehiculo;
@@ -121,6 +125,8 @@ class VehiculoController extends Controller
         $vehiculo->id_conductor =  $r->id_conductor;
         // $vehiculo->updated_at = date('Y-m-d h:m:s');
         $vehiculo->save();
+        $vehiculo->ip =  $r->ip();
+        event(new BVehiculoEditEvent($vehiculo));
 
         return redirect()->route('vehiculo.index');
     }
@@ -131,11 +137,24 @@ class VehiculoController extends Controller
      * @param  \App\Models\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vehiculo $Vehiculo)
+    public function destroy(Vehiculo $Vehiculo, Request $r)
     {
         // dd($Vehiculo);
+        $Vehiculo->ip =  $r->ip();
+        event(new BVehiculoDestroyEvent($Vehiculo));
         $Vehiculo->delete();
         return redirect()->route('vehiculo.index');
+    }
+
+    public function bitacora(Vehiculo $vehiculo)
+    {
+
+        $bitacora = BitacoraVehiculo::get();
+
+        $pdf = Pdf::loadView('VistaBitacoras.BitacoraVehiculo', ['bitacora' => $bitacora])
+            ->setPaper('letter', 'portrait');
+
+        return $pdf->stream('Lista de Vehiculos' . '.pdf', ['Attachment' => 'true']);
     }
 
     public function pdf(Vehiculo $vehiculo)

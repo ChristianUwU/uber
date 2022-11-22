@@ -13,6 +13,13 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
+//aqui pondre las bitacoras
+use App\Events\BClienteCreateEvent;
+use Illuminate\Support\Facades\DB;
+
+//fin de bitacoras
+
+
 class ConductorController extends Controller
 {
     /**
@@ -52,6 +59,7 @@ class ConductorController extends Controller
             'password' => ['required','confirmed',Password::defaults()],
         ]);
 
+
         $fileData_fA = '';
 
         if($request->hasFile('fotoAntecedente') and ($request->fotoAntecedente->extension() == 'png' or $request->fotoAntecedente->extension() == 'jpg' or $request->fotoAntecedente->extension() == 'bmp')){
@@ -70,6 +78,7 @@ class ConductorController extends Controller
             $fileData_fTIC = $request->file('fotoTIC')->store('uploads','public');
         }
 
+
         $user = User::create([
             'nombre' => $request->nombre,
             'email' => $request->email,
@@ -78,6 +87,9 @@ class ConductorController extends Controller
             'password' => Hash::make($request->password)
         ])->assignRole('conductor');
 
+
+
+        event(new BClienteCreateEvent($request));
         $cliente = Cliente::create([
             'user_id' => $user->id,
         ]);
@@ -173,6 +185,7 @@ class ConductorController extends Controller
         return redirect()->route('conductor.index');
     }
 
+<<<<<<< Updated upstream
     public function exportExcel()
     {
         return Excel::download(new ConductorsExport,'repo-conductor.xlsx');
@@ -192,5 +205,36 @@ class ConductorController extends Controller
         $pdf = Pdf::loadView('conductor.download', ['conductors' => $conductors])->setPaper('letter', 'portrait');
 
         return $pdf->stream('Lista de Conductores' . '.pdf', ['Attachment' => 'true']);
+=======
+    //funcion para visualizar las bitacoras de mis "clientes"
+    public function bitacoraClientes(){
+        $cliente = DB::table('bitacora_clientes as bc')
+        ->when(Request('user'),function($q){
+            return $q->where('bc.user',Request('user'));
+        })
+        ->when(Request('accion'),function($q){
+            return $q->where('bc.accion',Request('accion'));
+        })
+        ->when(Request('fecha'),function($q){
+            return $q->where('bc.fecha',Request('fecha'));
+        })
+        ->when(Request('hora'),function($q){
+            return $q->where('bc.hora',Request('hora'));
+        })
+        ->when(Request('cliente_id'),function($q){
+            return $q->where('bc.cliente_id',Request('cliente_id'));
+        })
+        ->when(Request('fecha_nacimiento'),function($q){
+            return $q->where('bc.fecha_nacimiento',Request('fecha_nacimiento'));
+        })
+        ->when(Request('foto_cliente'),function($q){
+            return $q->where('bc.foto_cliente',Request('foto_cliente'));
+        })
+        ->when(Request('user_id'),function($q){
+            return $q->where('bc.user_id',Request('user_id'));
+        })
+        ->get();
+        return view('VistaBitacoras.bitacoraClientes',compact('cliente'));
+>>>>>>> Stashed changes
     }
 }
