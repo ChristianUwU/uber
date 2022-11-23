@@ -185,7 +185,6 @@ class ConductorController extends Controller
         return redirect()->route('conductor.index');
     }
 
-<<<<<<< Updated upstream
     public function exportExcel()
     {
         return Excel::download(new ConductorsExport,'repo-conductor.xlsx');
@@ -205,7 +204,7 @@ class ConductorController extends Controller
         $pdf = Pdf::loadView('conductor.download', ['conductors' => $conductors])->setPaper('letter', 'portrait');
 
         return $pdf->stream('Lista de Conductores' . '.pdf', ['Attachment' => 'true']);
-=======
+    }
     //funcion para visualizar las bitacoras de mis "clientes"
     public function bitacoraClientes(){
         $cliente = DB::table('bitacora_clientes as bc')
@@ -235,6 +234,5 @@ class ConductorController extends Controller
         })
         ->get();
         return view('VistaBitacoras.bitacoraClientes',compact('cliente'));
->>>>>>> Stashed changes
     }
 }
