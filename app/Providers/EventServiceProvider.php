@@ -8,8 +8,12 @@ use App\Events\BVehiculoEditEvent;
 use App\Listeners\BVehiculoCreateListener;
 use App\Listeners\BVehiculoDestroyListener;
 use App\Listeners\BVehiculoEditListener;
+
+
 use App\Events\BClienteCreateEvent;
 use App\Listeners\BClienteCreateListener;
+
+
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
