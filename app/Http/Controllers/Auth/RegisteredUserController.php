@@ -40,7 +40,16 @@ class RegisteredUserController extends Controller
             'telefono' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'foto' => ['image', 'mimes:jpg,jpeg,png,gif,bmp,svg'],
         ]);
+
+        $fotoCliente = $request->file('foto')->store('public/cliente');
+
+        // if ($imagen = $request->file('foto')) {
+        //     $rutaGuardarImagen = 'cliente-fotos/';
+        //     $fotoCliente = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+        //     $imagen->move($rutaGuardarImagen, $fotoCliente);   // Movemos la imagen a la carpeta
+        // }
 
         $user = User::create([
             'nombre' => $request->nombre,
@@ -53,10 +62,11 @@ class RegisteredUserController extends Controller
         // Crear tabla de cliente
         Cliente::create([
             'user_id' => $user->id,
+            'foto' => $fotoCliente,
         ]);
 
         // Asignamos Rol
-        // $user->assignRole('cliente');
+        $user->assignRole('cliente');
 
         event(new Registered($user));
 

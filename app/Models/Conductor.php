@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Conductor extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'cliente_id',
@@ -21,6 +22,8 @@ class Conductor extends Model
         'CI_Reverso',
         'foto'
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function cliente(){
         return $this->belongsTo(Cliente::class,'cliente_id');

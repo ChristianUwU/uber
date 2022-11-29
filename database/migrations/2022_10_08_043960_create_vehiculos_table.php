@@ -15,20 +15,27 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-
             $table->string('placa');
             $table->string('marca');
             $table->string('modelo');
             $table->date('anio');
             $table->string('estado');
-            $table->unsignedBigInteger('id_conductor')->nullable();
-            $table->timestamps();
 
-            $table->foreign('id_conductor')
-            ->references('id')
-            ->on('conductors')
-            ->onDelete('Cascade')
-            ->onCascade('Cascade');
+            $table->foreignId('id_conductor', 'id')
+                ->on('conductores')
+                ->onDelete('cascade')
+                ->onCascade('cascade');
+            
+            $table->timestamps();
+            $table->softDeletes();
+
+            // $table->unsignedBigInteger('id_conductor')->nullable();
+
+            // $table->foreignId('id_conductor')
+            // ->references('id')
+            // ->on('conductores')
+            // ->onDelete('Cascade')
+            // ->onCascade('Cascade');
         });
     }
 
@@ -39,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vehiculo');
+        Schema::dropIfExists('vehiculos');
     }
 };

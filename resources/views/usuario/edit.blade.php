@@ -37,6 +37,16 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ $usuario->email }}" />
         </div>
 
+        <!-- Foto de Usuario -->
+        <div class="mt-4">
+            <x-input-label for="foto" :value="__('Foto de Perfil')" />
+
+            <input class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            id="foto" type="file" name="foto" value="{{ $usuario->cliente->foto }}" required autofocus />
+
+            <x-input-error :messages="$errors->get('foto')" class="mt-2" />
+        </div>
+
         <x-primary-button class="w-full justify-center mt-4">
             {{ __('Actualizar Datos') }}
         </x-primary-button>

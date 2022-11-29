@@ -6,9 +6,8 @@
             </a>
         </x-slot>
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" novalidate>
             @csrf
-
             <!-- Nombre -->
             <div>
                 <x-input-label for="nombre" :value="__('Nombre')" />
@@ -38,14 +37,26 @@
 
                 <x-input-error :messages="$errors->get('telefono')" class="mt-2" />
             </div>
-
+            
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
-
+                
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-
+                
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+                
+            <!-- Foto de Usuario -->
+            <div class="mt-4">
+                <x-input-label for="foto" :value="__('Foto de Perfil')" />
+
+                <input class="w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                id="foto" type="file" name="foto" :value="old('foto')" required autofocus />
+
+                {{-- <x-text-input id="telefono" class="block mt-1 w-full" type="number" name="telefono" :value="old('telefono')" required autofocus /> --}}
+
+                <x-input-error :messages="$errors->get('foto')" class="mt-2" />
             </div>
 
             <!-- Password -->
@@ -71,14 +82,13 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
 
                 <x-primary-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('Registrar') }}
                 </x-primary-button>
             </div>
         </form>

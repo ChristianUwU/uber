@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id','id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->date('fecha_nacimiento')->nullable(); //Para que no le afecte a Emanuel
             $table->string('foto')->nullable();
+            $table->softDeletes(); 
             $table->timestamps();
         });
     }
