@@ -29,8 +29,19 @@ class ConductorController extends Controller
      */
     public function index()
     {
-        $conductors = Conductor::all();
-        return view('conductor.index', ['conductors' => $conductors]);
+        $fecha_antes = Request('fecha_antes');
+        $fecha_hasta = Request('fecha_hasta');
+        // $conductors = Conductor::all();
+        $conductors = Conductor::when(Request('fecha_antes'), function($q){
+            return $q->where('created_at','>=',Request('fecha_antes'));
+        })
+        ->when(Request('fecha_antes'), function($q){
+            return $q->where('created_at','<=',Request('fecha_hasta'));
+        })->get();
+
+        // dd($conductors);
+
+        return view('conductor.index', compact('conductors','fecha_antes','fecha_hasta'));
     }
 
     /**
@@ -205,6 +216,9 @@ class ConductorController extends Controller
 
         return $pdf->stream('Lista de Conductores' . '.pdf', ['Attachment' => 'true']);
     }
+
+
+
     //funcion para visualizar las bitacoras de mis "clientes"
     public function bitacoraClientes(){
         $cliente = DB::table('bitacora_clientes as bc')
