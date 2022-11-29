@@ -196,27 +196,35 @@ class ConductorController extends Controller
         return redirect()->route('conductor.index');
     }
 
-    public function exportExcel()
+    public function export(Request $q)
     {
-        return Excel::download(new ConductorsExport,'repo-conductor.xlsx');
+        // dd($q);
+        if($q->formato == 1){
+            return Excel::download(new ConductorsExport,'repo-conductor.xlsx');
+        }else{
+            if($q->formato == 3){
+                return Excel::download(new ConductorsExport,'repo-conductor.html');
+            }else{
+                $fecha_antes = Request('fecha_antes');
+                $fecha_hasta = Request('fecha_hasta');
+                $conductors = Conductor::when(Request('fecha_antes'), function($q){
+                    if(is_null(Request('fecha_antes'))){
+                        return $q->get();
+                    }
+                    return $q->where('created_at','>=',Request('fecha_antes'));
+                })
+                ->when(Request('fecha_antes'), function($q){
+                    if(is_null(Request('fecha_antes'))){
+                        return $q->get();
+                    }
+                    return $q->where('created_at','<=',Request('fecha_hasta'));
+                })->get();
+                view()->share('conductor.download', $conductors);
+                $pdf = Pdf::loadView('conductor.download', ['conductors' => $conductors])->setPaper('letter', 'portrait');
+                return $pdf->download('Lista de Conductores' . '.pdf', ['Attachment' => 'false']);
+            }
+        }
     }
-
-    public function exportHtml()
-    {
-        return Excel::download(new ConductorsExport,'repo-conductor.html');
-    }
-
-    public function downloadPDF()
-    {
-        $conductors = Conductor::all();
-
-        view()->share('conductor.download', $conductors);
-
-        $pdf = Pdf::loadView('conductor.download', ['conductors' => $conductors])->setPaper('letter', 'portrait');
-
-        return $pdf->stream('Lista de Conductores' . '.pdf', ['Attachment' => 'true']);
-    }
-
 
 
     //funcion para visualizar las bitacoras de mis "clientes"

@@ -13,9 +13,9 @@
         Conductores Registrados
     </h3>
 
-    <div class="flex p-1 items-center ">
+    <div class="flex p-1 pb-4 items-center ">
 
-        <div>
+        {{-- <div>
             <a href="{{ Route('repo-conductor-xlsx') }}" target="_blank"
                 class="py-3 bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Reporte
                 EXCEL
@@ -34,13 +34,15 @@
                 class="py-3 bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Reporte
                 PDF
             </a>
-        </div>
+        </div> --}}
 
 
         {{-- Julico --}}
-        <form action="{{ Route('repo-conductor-xlsx') }}" id="form" class="hidden lg:block" method="GET">
-            <div class="flex mx-3">
-                <div class="sm:row-start-3 lg:row-start-2 xl:row-start-1">
+        <form action="{{ Route('repo-conductor') }}" id="form" class="hidden lg:block" method="POST">
+            @csrf
+            @method('POST')
+            <div class="flex mx-1">
+                <div class="sm:row-start-3 lg:row-start-2 xl:row-start-1 mx-1">
                     <label for="fecha_antes"> Creado Desde</label>
                     <input
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2
@@ -48,7 +50,7 @@
                         type="date" min="2000-01-01" max="{{ date('Y-m-d H:i:s') }}" name="fecha_antes"
                         value="{{ $fecha_antes }}">
                 </div>
-                <div class="sm:row-start-3 lg:row-start-2 xl:row-start-1 mx-3">
+                <div class="sm:row-start-3 lg:row-start-2 xl:row-start-1 mx-1">
                     <label for="fecha_hasta"> Creado Hasta</label>
                     <input
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2
@@ -56,11 +58,20 @@
                         type="date" min="2000-01-01" max="{{ date('Y-m-d H:i:s') }}" name="fecha_hasta"
                         value="{{ $fecha_hasta }}">
                 </div>
-                <div class="flex flex-row-reverse items-end justify-between sm:row-start-3 lg:row-start-2 xl:row-start-1">
-                    <button class="flex justify-evenly  bg-blue-600 rounded-xl px-3 py-2 h-fit" type="submit">
-                        <p class="text-white ">Imprimir</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 p-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                <div class="sm:row-start-3 lg:row-start-2 xl:row-start-1 mx-1">
+                    <label for="formato"> Formato de Reporte</label><br>
+                    <select id="formato" name="formato" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-2 p-2
+                    dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="1">EXCEL</option>
+                        <option value="2">PDF</option>
+                        <option value="3">HTML</option>
+                    </select>
+                </div>
+                <div class="mx-1 flex flex-row items-end justify-between sm:row-start-3 lg:row-start-2 xl:row-start-1">
+                    <button target="_blank" class="flex justify-evenly  bg-blue-600 rounded-xl px-3 py-2 h-fit" type="submit">
+                        <p class="text-white mx-1">Descargar</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                         </svg>
                     </button>
                 </div>
