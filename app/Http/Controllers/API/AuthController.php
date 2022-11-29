@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -65,8 +66,9 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth()->user()->tokens()->delete();  // Elimina token
-
+        // auth()->user()->tokens()->delete();  // Elimina token
+        auth()->user->token()->revoke();
+        
         return [
             'message' => 'Logged Out'
         ];

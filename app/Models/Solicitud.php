@@ -16,6 +16,10 @@ class Solicitud extends Model
         'fotoAntecedente',
         'fotoLicencia',
         'fotoTIC',
+        'fotoPapelesAuto',
+        'fotoCI_Anverso',
+        'fotoCI_Reverso',
+        'foto',
     ];
 
     public function cliente(){

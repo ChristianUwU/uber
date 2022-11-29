@@ -41,18 +41,43 @@
             <x-text-input id="fotoAntecedente" class="block mt-1 w-full" type="file" name="fotoAntecedente" :value="old('fotoAntecedente')" required />
         </div>
 
+        {{-- fotod --}}
+        <div class="mt-4">
+            <x-input-label class="text-gray-800" for="foto" :value="__('Foto conductor')" />
+            <x-text-input id="foto" class="block mt-1 w-full" type="file" name="foto" :value="old('foto')" required />
+        </div>
+
         {{-- fotoLicencia - solicitud --}}
         <div class="mt-4">
             <x-input-label class="text-gray-800" for="fotoLicencia" :value="__('Foto de licencia')" />
-            <x-text-input id="telefono" class="block mt-1 w-full" type="file" name="fotoLicencia" :value="old('fotoLicencia')" required />
+            <x-text-input id="fotoLicencia" class="block mt-1 w-full" type="file" name="fotoLicencia" :value="old('fotoLicencia')" required />
         </div>
 
         {{-- fotoTIC - solicitud --}}
         <div class="mt-4">
             <x-input-label class="text-gray-800" for="fotoTIC" :value="__('Foto TIC')" />
-            <x-text-input id="telefono" class="block mt-1 w-full" type="file" name="fotoTIC" :value="old('fotoTIC')" required />
+            <x-text-input id="fotoTIC" class="block mt-1 w-full" type="file" name="fotoTIC" :value="old('fotoTIC')" required />
         </div>
 
+        {{-- fotoPapelesAuto - solicitud --}}
+        <div class="mt-4">
+            <x-input-label class="text-gray-800" for="fotoPapelesAuto" :value="__('Foto de los papeles del auto con el que desee trabajar')" />
+            <x-text-input id="fotoPapelesAuto" class="block mt-1 w-full" type="file" name="fotoPapelesAuto" :value="old('fotoPapelesAuto')" required />
+        </div>
+
+        {{-- fotoCI_Anverso - solicitud --}}
+        <div class="mt-4">
+            <x-input-label class="text-gray-800" for="fotoCI_Anverso" :value="__('Foto de CI (Anverso)')" />
+            <x-text-input id="fotoCI_Anverso" class="block mt-1 w-full" type="file" name="fotoCI_Anverso" :value="old('fotoCI_Anverso')" required />
+        </div>
+
+        {{-- fotoCI_Reverso - solicitud --}}
+        <div class="mt-4">
+            <x-input-label class="text-gray-800" for="fotoCI_Reverso" :value="__('Foto de CI (Reverso)')" />
+            <x-text-input id="fotoCI_Reverso" class="block mt-1 w-full" type="file" name="fotoCI_Reverso" :value="old('fotoCI_Reverso')" required />
+        </div>
+
+        
         {{-- email - usuario --}}
         {{-- <div class="mt-4">
             <x-input-label class="text-gray-800" for="email" :value="__('Email')" />

@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('fotoAntecedente');
             $table->string('fotoLicencia');
             $table->string('fotoTIC');
+            $table->string('fotoPapelesAuto');
+            $table->string('fotoCI_Anverso');
+            $table->string('fotoCI_Reverso');
+            $table->string('foto');
             $table->timestamps();
         });
     }

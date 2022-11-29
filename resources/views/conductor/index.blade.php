@@ -13,16 +13,33 @@
     Conductores Registrados
 </h3>
 
-<div class="grid p-2 text-center">
-    <div class="grid-cols-12">
-        <form action="{{ route('conductor.index') }}" method="GET">
+<div class="flex p-2 text-center">
+
+        <div class="pb-2">
+            <a href="{{ Route('repo-conductor-xlsx') }}" target="_blank"
+            class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Reporte EXCEL
+            </a>
+        </div>
+
+        <div class="pb-2">
+            <a href="{{ Route('repo-conductor-html') }}" target="_blank"
+            class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Reporte HTML
+            </a>
+        </div>
+
+        <div class="pb-2">
+            <a href="{{ Route('downloadPDF') }}" target="_blank"
+            class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Reporte PDF
+            </a>
+        </div>
+
+        {{-- <form action="{{ route('conductor.index') }}" method="GET">
             <input type="text" class="w-1/2 mr-5 rounded-lg border-stone-900" name="texto" value="" placeholder="Buscar">
             <div class="inline p-2 bg-cyan-500  hover:bg-cyan-400 font-bold rounded-md text-lg">
                 <input type="submit" class="pr-2" value="Buscar">
                 <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
             </div>
-        </form>
-    </div>
+        </form> --}}
 </div>
 
 <div class="overflow-x-auto relative">

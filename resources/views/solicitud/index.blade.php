@@ -61,16 +61,16 @@
                     </td>
                     <td class="py-3 px-1">
                         <div class="flex justify-center gap-2">
-                            {{-- <div class="flex justify-center items-center">
+                            <div class="flex justify-center items-center">
                                 <div class="col-span-1 bg-indigo-700 hover:bg-indigo-800 hover:font-bold text-white p-1 rounded-md ">
                                     <i class="fa-solid fa-plus pr-2"></i> <a href="{{ route('solicitud.show', $solicitud->id) }}">Mostrar</a>
                                 </div>
-                            </div> --}}
+                            </div>
 
-                            <form action="{{ route('solicitud.edit', $solicitud->id) }}" method="GET">
+                            <form action="{{ route('solicitud.accepted', $solicitud->id) }}" method="POST">
                                 @csrf
                                 <x-button-edit>
-                                    Editar    
+                                    Aceptar
                                 </x-button-edit>
                             </form>
 
@@ -78,7 +78,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <x-button-delete>
-                                    Eliminar
+                                    Rechazar
                                 </x-button-delete>
                             </form>
                         </div>

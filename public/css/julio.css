@@ -1,0 +1,35 @@
+.telefono{
+    font-size: 25;
+    padding: 5px 25px 5px 25px;
+    outline: none;
+    border: none;
+    background-color: red;
+    color: white;
+    border-radius: 20px;
+}
+
+telefono:hover{
+    background-color: rgb(100, 2, 100);
+    cursor: pointer;
+
+}
+
+.adentro{
+    font-size: inherit;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid blueviolet;
+    outline: none;
+}
+.afuera{
+    position: relative;
+}
+afuera::before{
+    content: "591";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: white;
+    padding: 0 4px;
+    color: blueviolet;
+}

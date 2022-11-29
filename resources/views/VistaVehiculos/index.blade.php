@@ -125,6 +125,7 @@
             </div>
         </div>
     </div>
+    {{-- siguiente seccion --}}
 
     <div class="mt-4 mx-4">
         <div class="md:col-span-2 xl:col-span-3 text-center font-semibold">
@@ -138,7 +139,7 @@
                     <label id="demoxd" value="getLocation()"></label>
 
                     <br>
-                    <button onclick="getLocation()">Obtener Ubicacion</button>
+                    <button class="telefono" onclick="getLocation()">Obtener Ubicacion</button>
                     <p id="demo"></p>
                     <div class="w-1/2">
                         <x-maps-leaflet :centerPoint="['lat' => -17.8489585, 'long' => -63.1678671]" :markers="[['lat' => -17.8489585, 'long' => -63.1678671]]" :zoomLevel="14"></x-maps-leaflet>
@@ -148,47 +149,34 @@
         </div>
     </div>
     <button onclick="findMe()">Mostrar ubicación</button>
-	<div id="map"></div>
+    <div id="map"></div>
 
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRG_W60lToMEX8KbmnZGNAquLkkVVrsO8"></script>
-	<script>
-		function findMe(){
-			var output = document.getElementById('map');
-
-			// Verificar si soporta geolocalizacion
-			if (navigator.geolocation) {
-				output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
-			}else{
-				output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
-			}
-
-			//Obtenemos latitud y longitud
-			function localizacion(posicion){
-
-				var latitude = posicion.coords.latitude;
-				var longitude = posicion.coords.longitude;
-
-				var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&size=600x300&markers=color:red%7C"+latitude+","+longitude+"&key=AIzaSyCRG_W60lToMEX8KbmnZGNAquLkkVVrsO8";
-
-				output.innerHTML ="<img src='"+imgURL+"'>";
-
-
-
-			}
-
-			function error(){
-				output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
-
-			}
-
-			navigator.geolocation.getCurrentPosition(localizacion,error);
-
-		}
-
-
-	</script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1aJEiTGum8cnVPccg8KEVx97VLQweSko"></script>
     <script>
+        function findMe() {
+            var output = document.getElementById('map');
+            // Verificar si soporta geolocalizacion
+            if (navigator.geolocation) {
+                output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
+            } else {
+                output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
+            }
+            //Obtenemos latitud y longitud
+            function localizacion(posicion) {
+                var latitude = posicion.coords.latitude;
+                var longitude = posicion.coords.longitude;
+                var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude +
+                    "&size=600x300&markers=color:red%7C" + latitude + "," + longitude +
+                    "&key=AIzaSyD1aJEiTGum8cnVPccg8KEVx97VLQweSko";
+                output.innerHTML = "<img src='" + imgURL + "'>";
+            }
+            function error() {
+                output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
+            }
+            navigator.geolocation.getCurrentPosition(localizacion, error);
+        }
+
+        // aqui va otra funcion muy aparte esta sirve para obtener mi latitud y longitud por medio de mi navegador
         var x = document.getElementById("demoxd");
 
         function getLocation() {
