@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -75,10 +77,56 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuario = User::find($id);
-        $usuario->update($request->all());
+        $request->validate([
+            'nombre' => ['string', 'max:255'],
+            'email' => ['string', 'email', 'max:255'],
+            'apellido' => ['string', 'max:255'],
+            'telefono' => ['max:10'],
+            'foto' => ['image', 'mimes:jpg,jpeg,png,gif,bmp,svg'],
+        ]);
         
-        return redirect()->route('usuario.show', ['usuario' => $usuario]);
+        $user = User::find($id);
+
+        if ($password = $request->password) {  // Envio contraseña
+            if (!Hash::check($password, $user->password)) {
+                return response([
+                    'massage' => 'Contraseña Incorecta'
+                ], 401);
+            }
+            
+            $user->password = Hash::make($request->new_password);
+        }
+
+        $cliente = $user->cliente;
+        $fotoCliente = $cliente->foto;
+
+        
+        // Verificar si existe imagen
+        if ($imagen = $request->file('foto')) {
+            $rutaGuardarImagen = 'cliente-fotos/';
+            $imageUser = Str::uuid() . "." . $imagen->getClientOriginalExtension();
+            if ($fotoCliente != null) { // Eliminar foto anterior
+                dd('public/cliente-fotos/' . $fotoCliente);
+                Storage::delete('cliente-fotos/' . $fotoCliente);
+            }
+            $imagen->move($rutaGuardarImagen, $imageUser);
+        }
+
+        if ($request->nombre != null) 
+            $user->nombre = $request['nombre'];
+        if ($request->apellido != null) 
+            $user->apellido = $request['apellido'];    
+        if ($request->telefono != null) 
+            $user->telefono = $request['telefono'];
+        if ($request->email != null) 
+            $user->email = $request['email']; 
+            
+        $user->update();
+
+        $cliente->foto = $imageUser ?? '';
+        $cliente->update();
+        
+        return redirect()->route('usuario.show', ['usuario' => $user]);
     }
 
     /**

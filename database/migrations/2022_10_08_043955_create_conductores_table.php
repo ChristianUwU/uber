@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conductors', function (Blueprint $table) {
+        Schema::create('conductores', function (Blueprint $table) {
             $table->id();
-
-            // $table->unsignedBigInteger('user_id');
-            $table->foreignId('cliente_id', 'id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             $table->string('ci');
             $table->string('foto')->nullable();
             $table->boolean('ocupado');
@@ -26,8 +23,9 @@ return new class extends Migration
             $table->string('fotoAntecedente')->nullable();
             $table->string('fotoLicencia')->nullable();
             $table->string('fotoTIC')->nullable();
+            $table->foreignId('cliente_id', 'id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-
+            $table->softDeletes();
         });
     }
 
@@ -38,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conductors');
+        Schema::dropIfExists('conductores');
     }
 };

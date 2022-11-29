@@ -16,7 +16,6 @@ use Illuminate\Validation\Rules\Password;
 //aqui pondre las bitacoras
 use App\Events\BClienteCreateEvent;
 use Illuminate\Support\Facades\DB;
-
 //fin de bitacoras
 
 
@@ -58,7 +57,6 @@ class ConductorController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required','confirmed',Password::defaults()],
         ]);
-
 
         $fileData_fA = '';
 

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('telefono');
             $table->string('password'); // Lo cambio para validar la confirmación
             $table->timestamp('email_verified_at')->nullable();
+            $table->softDeletes();  // Campo para eliminar registros
             $table->rememberToken();
             $table->timestamps();
         });
