@@ -19,12 +19,19 @@ class ClienteController extends Controller
      */
     public function index()
     {
+        $fecha_antes = Request('fecha_antes');
+        $fecha_hasta = Request('fecha_hasta');
         $clientes = DB::table('users')
                 ->select('nombre', 'apellido', 'telefono')
                 ->join('clientes', 'users.id', '=', 'clientes.user_id')
-                ->paginate(10);
-            
-        return view('cliente.index', ['clientes' => $clientes]);
+                ->when(Request('fecha_antes'), function($q){
+                    return $q->where('created_at','>=',Request('fecha_antes'));
+                })
+                ->when(Request('fecha_antes'), function($q){
+                    return $q->where('created_at','<=',Request('fecha_hasta'));
+                })->get();
+
+        return view('cliente.index', compact('clientes','fecha_antes','fecha_hasta'));
     }
 
     /**
@@ -93,30 +100,37 @@ class ClienteController extends Controller
         //
     }
 
-
-    public function downloadPDF(Cliente $cliente)
+    public function export(Request $q)
     {
-
-        $clientes = Cliente::all();
-        
-        view()->share('cliente.download', $clientes);
-        // $pdf = PDF::loadView('cliente.download',['clientes'=>$clientes]);
-        // return $pdf->download('Lista de Clientes' . '.pdf'); //Para que descargue directo el pdf
-        $pdf = Pdf::loadView('Cliente.download', ['clientes' => $clientes])
-            ->setPaper('letter', 'portrait');
-
-        return $pdf->stream('Lista de Clientes' . '.pdf', ['Attachment' => 'true']);
-
+        // dd($q);
+        if($q->formato == 1){
+            // return Excel::download(new ConductorsExport,'repo-conductor.xlsx');
+            return Excel::download(new ClientesExport,'repo-clientes.xlsx');
+        }else{
+            if($q->formato == 3){
+                // return Excel::download(new ConductorsExport,'repo-conductor.html');
+                return Excel::download(new ClientesExport,'repo-clientes.html');
+            }else{
+                $fecha_antes = Request('fecha_antes');
+                $fecha_hasta = Request('fecha_hasta');
+                $clientes = Cliente::when(Request('fecha_antes'), function($q){
+                    if(is_null(Request('fecha_antes'))){
+                        return $q->get();
+                    }
+                    return $q->where('created_at','>=',Request('fecha_antes'));
+                })
+                ->when(Request('fecha_antes'), function($q){
+                    if(is_null(Request('fecha_antes'))){
+                        return $q->get();
+                    }
+                    return $q->where('created_at','<=',Request('fecha_hasta'));
+                })->get();
+                view()->share('cliente.download', $clientes);
+                $pdf = Pdf::loadView('Cliente.download', ['clientes' => $clientes])->setPaper('letter', 'portrait');
+                return $pdf->download('Lista de Clientes' . '.pdf', ['Attachment' => 'false']);
+            }
+        }
     }
 
-    public function exportExcel()
-    {
-        return Excel::download(new ClientesExport,'repo-clientes.xlsx');
-    }
-
-    public function exportHtml()
-    {
-        return Excel::download(new ClientesExport,'repo-clientes.html');
-    }
 
 }

@@ -27,17 +27,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('conductor',ConductorController::class);
-Route::get('/repo-conductor-xlsx',[ConductorController::class,'exportExcel'])->name('repo-conductor-xlsx');
-Route::get('/repo-conductor-html',[ConductorController::class,'exportHtml'])->name('repo-conductor-html');
-Route::get('/repo-conductor-pdf',[ConductorController::class,'downloadPDF'])->name('downloadPDF');
+Route::post('/repo-conductor-xlsx',[ConductorController::class,'export'])->name('repo-conductor');
 
 Route::resource('solicitud', SolicitudController::class);
 Route::post('/solicitud/{solicitud}', [SolicitudController::class,'accepted'])->name('solicitud.accepted');
 
 Route::resource('cliente', ClienteController::class);
-Route::get('download', [ClienteController::class, 'downloadPDF'])->name('download-pdf');
-Route::get('/repo-cliente-xlsx',[ClienteController::class,'exportExcel'])->name('repo-cliente-xlsx');
-Route::get('/repo-cliente-html',[ClienteController::class,'exportHtml'])->name('repo-cliente-html');
+Route::post('/repo-cliente',[ClienteController::class,'export'])->name('repo-cliente');
+
 
 Route::resource('usuario', UserController::class);
 
