@@ -49,6 +49,7 @@ class UserController extends Controller
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
+                'is_driver' => $user->is_driver,
             ],
             'image' => $image,
         ];
@@ -118,6 +119,7 @@ class UserController extends Controller
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
+                'is_driver' => $user->is_driver,
             ],
             'image' => str_replace('public', 'storage', $user->cliente->foto) ?? '',
         ];
@@ -169,6 +171,8 @@ class UserController extends Controller
                 'nombre' => $user->nombre,
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
+                'role' => $user->getRoleNames(),
+                'is_driver' => $user->is_driver,
             ],
             'image' => str_replace('public', 'storage', $user->cliente->foto),
         ];

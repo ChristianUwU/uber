@@ -52,6 +52,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
+                'is_driver' => $user->is_driver,
             ],    
             'image' => str_replace('public', 'storage', $cliente->foto) ?? '',
             'token' => $token,
@@ -86,6 +87,7 @@ class AuthController extends Controller
                 'email' => $user->email,
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
+                'is_driver' => $user->is_driver,
             ],
             'image' => str_replace('public', 'storage', $user->cliente->foto) ?? '',
             'token' => $token
