@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Models\Cliente;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -27,12 +25,6 @@ class AuthController extends Controller
             $request->validate(['foto' => 'image','mimes:jpeg,png,jpg,gif,svg']);
             $fotoCliente = $request->file('foto')->store('public/cliente');
         }
-
-        // if ($imagen = $request->file('foto')) {
-        //     $rutaGuardarImagen = 'cliente-fotos/';
-        //     $imageUser = Str::uuid() . "." . $imagen->getClientOriginalExtension();
-        //     $imagen->move($rutaGuardarImagen, $imageUser);
-        // }
 
         $user = User::create([
             'id' => $request->id,
@@ -61,7 +53,7 @@ class AuthController extends Controller
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
             ],    
-            'image' => $cliente->foto,
+            'image' => str_replace('public', 'storage', $cliente->foto) ?? '',
             'token' => $token,
         ];
 
@@ -95,7 +87,7 @@ class AuthController extends Controller
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
             ],
-            'image' => $user->cliente->foto,
+            'image' => str_replace('public', 'storage', $user->cliente->foto) ?? '',
             'token' => $token
         ];
 

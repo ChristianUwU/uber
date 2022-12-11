@@ -9,6 +9,7 @@ Route::post('/register', [AuthApi::class, 'register']);
 
 Route::post('/login', [AuthApi::class, 'login']);
 
+
 Route::post('/logout', [AuthApi::class, 'logout'])
     ->name('api.logout')
     ->middleware('auth:sanctum');

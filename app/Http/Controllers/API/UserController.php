@@ -39,6 +39,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->first();
+        $image = str_replace('public', 'storage', $user->cliente->foto) ?? '';
 
         $response = [
             'user' => [
@@ -49,7 +50,7 @@ class UserController extends Controller
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
             ],
-            'image' => str_replace('public', 'storage', $user->cliente->foto),
+            'image' => $image,
         ];
 
         return response($response, 200);
@@ -118,7 +119,7 @@ class UserController extends Controller
                 'telefono' => $user->telefono,
                 'role' => $user->getRoleNames(),
             ],
-            'image' => str_replace('public', 'storage', $user->cliente->foto),
+            'image' => str_replace('public', 'storage', $user->cliente->foto) ?? '',
         ];
         
         return response($response, 201);
