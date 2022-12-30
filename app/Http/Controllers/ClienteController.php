@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ClientesExport;
+use App\Models\Conductor;
 
 class ClienteController extends Controller
 {
@@ -97,7 +98,19 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $conductor  = Conductor::Find($id);
+        $cliente    = Cliente::Find($conductor->cliente_id);
+        $user       = User::Find($cliente->user_id);
+
+        if ($conductor != null && $cliente != null && $user != null) {
+            return response('Error al eliminar conductor', 401);
+        }
+
+        $conductor->delete();
+        $cliente->delete();
+        $user->delete();
+
+        return response('Conductor eliminado corectamente', 201);
     }
 
     public function export(Request $q)

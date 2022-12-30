@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conductor;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SolicitudController extends Controller
 {
@@ -108,6 +109,49 @@ class SolicitudController extends Controller
     }
 
     /**
+     * Modifica el estado de la solicitud
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *          $id de la solicitud
+     *          $idAdmi id del administrador que responde la solicitud
+     * @return \Illuminate\Http\Response
+     */
+    public function responder(Request $request, $id, $idAdmi) {
+        $solicitud = DB::table('solicituds')
+                        ->select('estado', 'detalle', 'administrador_id')
+                        ->where($id)
+                        ->first();
+
+        $request->validate([
+            'estado' => '',
+        ]);
+
+        $solicitud->estado = $request->estado;
+        $solicitud->detalle = $request->detalle;
+        $solicitud->administrador_id = $idAdmi;
+
+        // switch ($solicitud->estado) {
+        //     case 'A':
+        //         # code...
+        //         break;
+
+        //     case 'R':
+        //         # code...
+        //         break;
+
+        //     case 'U':
+        //         # code...
+        //         break;
+            
+        //     default:
+        //         # code...
+        //         break;
+        // }
+
+        return redirect()->route('solicitud.index');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -115,7 +159,7 @@ class SolicitudController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

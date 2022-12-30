@@ -38,8 +38,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id', $id)->first();
-        $image = str_replace('public', 'storage', $user->cliente->foto) ?? '';
+        $user = User::find($id);
+        $image = str_replace('public', 'storage', $user->cliente->foto);
 
         $response = [
             'user' => [

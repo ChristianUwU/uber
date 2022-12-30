@@ -18,11 +18,13 @@ return new class extends Migration
             $table->string('placa');
             $table->string('marca');
             $table->string('modelo');
-            $table->date('anio');
+            $table->string('anio');
             $table->string('estado');
+            $table->string('foto_vehiculo');
+            $table->string('papeles_vehiculo')->nullable();   // Importante registrar los papeles
 
-            $table->foreignId('id_conductor', 'id')
-                ->on('conductores')
+            $table->foreignId('conductor_id', 'id')
+                ->on('conductors')
                 ->onDelete('cascade')
                 ->onCascade('cascade');
             

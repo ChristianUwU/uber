@@ -53,6 +53,10 @@ class ConductorController extends Controller
         return view('conductor.create');
     }
 
+    public function is_driver() {
+        return auth()->user->is_driver;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -113,7 +117,6 @@ class ConductorController extends Controller
         ]);
 
         return redirect()->route('conductor.index');
-
     }
 
     /**
@@ -190,7 +193,19 @@ class ConductorController extends Controller
      */
     public function destroy($id)
     {
-        Conductor::destroy($id);
+        $conductor = Conductor::Find($id);
+        $cliente = Cliente::Find($conductor->cliente_id);
+        $user = User::Find($cliente->user_id);
+
+        if ($conductor != null && $cliente != null && $user != null) {
+            return redirect()
+                ->route('conductor.index', ['message' => 'Error al eliminar']);
+        }
+
+        $conductor->delete();
+        $cliente->delete();
+        $user->delete();
+
         return redirect()->route('conductor.index');
     }
 

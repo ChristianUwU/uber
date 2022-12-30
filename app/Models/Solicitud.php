@@ -11,15 +11,22 @@ class Solicitud extends Model
 
     protected $fillable = [
         'cliente_id',
+        'administrador_id',
         'ci',
-        // 'estado',
+        'foto',
+        'fotoCI_Anverso',
+        'fotoCI_Reverso',
         'fotoAntecedente',
         'fotoLicencia',
         'fotoTIC',
+        'placa',
+        'marca',
+        'modelo',
+        'anio',
+        'fotoVehiculo',
         'fotoPapelesAuto',
-        'fotoCI_Anverso',
-        'fotoCI_Reverso',
-        'foto',
+        'estado',
+        'detalle'
     ];
 
     public function cliente(){

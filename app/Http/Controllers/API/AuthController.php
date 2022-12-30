@@ -18,13 +18,10 @@ class AuthController extends Controller
             'telefono' => ['required', 'max:10'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
-            // 'foto' => ['image','mimes:jpeg,png,jpg,gif,svg'], 
+            'foto' => ['image','mimes:jpeg,png,jpg,gif,svg'], 
         ]);
 
-        if ($request->hasFile('foto')) {
-            $request->validate(['foto' => 'image','mimes:jpeg,png,jpg,gif,svg']);
-            $fotoCliente = $request->file('foto')->store('public/cliente');
-        }
+        $fotoCliente = $request->file('foto')->store('public/cliente');
 
         $user = User::create([
             'id' => $request->id,

@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {
-    public $table = "clientes"; // Especificar el nombre de la tabla
-
     use HasFactory, SoftDeletes;
+    
+    public $table = "clientes"; // Especificar el nombre de la tabla
 
     protected $fillable = [
         'user_id',

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conductores', function (Blueprint $table) {
+        Schema::create('conductors', function (Blueprint $table) {
             $table->id();
             $table->string('ci');
             $table->string('foto')->nullable();
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conductores');
+        Schema::dropIfExists('conductors');
     }
 };
