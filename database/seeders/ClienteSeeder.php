@@ -16,6 +16,10 @@ class ClienteSeeder extends Seeder
     public function run()
     {
         Cliente::create([
+            'user_id' => 5,
+        ]);
+
+        Cliente::create([
             'user_id' => 6,
         ]);
 
@@ -26,13 +30,9 @@ class ClienteSeeder extends Seeder
         Cliente::create([
             'user_id' => 8,
         ]);
-
-        Cliente::create([
-            'user_id' => 9,
-        ]);
         
         Cliente::create([
-            'user_id' => 10,
+            'user_id' => 9,
         ]);
     }
 }

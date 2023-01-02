@@ -9,13 +9,27 @@ use Maatwebsite\Excel\Concerns\FromView;
 class ClientesExport implements FromView
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
 
-    public function view():View
+    public function view(): View
     {
-        return view('cliente.export',[
-            'clientes' =>Cliente::all(),
+        $fecha_antes = Request('fecha_antes');
+        $fecha_hasta = Request('fecha_hasta');
+        return view('cliente.export', [
+            // 'conductors' => Conductor::all(),
+            'clientes' => Cliente::when(Request('fecha_antes'), function ($q) {
+                if (is_null(Request('fecha_antes'))) {
+                    return $q->get();
+                }
+                return $q->where('created_at', '>=', Request('fecha_antes'));
+            })
+                ->when(Request('fecha_antes'), function ($q) {
+                    if (is_null(Request('fecha_antes'))) {
+                        return $q->get();
+                    }
+                    return $q->where('created_at', '<=', Request('fecha_hasta'));
+                })->get(),
         ]);
     }
 
