@@ -198,4 +198,32 @@ class SolicitudController extends Controller
     {
         //
     }
+
+    public function sendRequest($user_id)
+    {
+        // Buscamos el cliente
+        $cliente = DB::table('clientes')
+                    ->select('id')
+                    ->where('user_id', $user_id)
+                    ->first();
+                    
+        if($cliente){
+            $solicitud = DB::table('solicituds')
+            ->where('cliente_id', $cliente->id)
+            ->get();
+
+            // Obtengo la ultima solicitud
+            
+            if(count($solicitud) > 0){
+                $solicitud = $solicitud[count($solicitud)-1];
+                // Existe Solicitud
+                return response([
+                    'sendRequest' => true, 
+                    'estado' => $solicitud->estado,
+                ], 201);
+            }
+        }
+
+        return response(204);
+    }
 }

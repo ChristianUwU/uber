@@ -25,9 +25,7 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        $fecha_antes = Request('fecha_antes');
-        $fecha_hasta = Request('fecha_hasta');
-        $carros = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
+        $carros = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.conductor_id')
             ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
             ->join('users as u', 'u.id', '=', 'c.user_id')
             ->select('vehiculos.*', 'u.nombre as propietario')->get();
@@ -73,7 +71,7 @@ class VehiculoController extends Controller
         $vehiculo->modelo = $r->modelo;
         $vehiculo->anio = $r->anio;
         $vehiculo->estado =  $r->estado;
-        $vehiculo->id_conductor =  $r->propietario;
+        $vehiculo->conductor_id =  $r->propietario;
         $vehiculo->save();
         $vehiculo->ip =  $r->ip();
 
@@ -101,7 +99,7 @@ class VehiculoController extends Controller
     public function edit($id)
     {
         $propietarios = User::get();
-        $carro = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
+        $carro = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.conductor_id')
             ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
             ->join('users as u', 'u.id', '=', 'c.user_id')
             ->where('vehiculos.id', $id)
@@ -125,7 +123,7 @@ class VehiculoController extends Controller
         $vehiculo->modelo = $r->modelo;
         $vehiculo->anio = $r->anio;
         $vehiculo->estado =  $r->estado;
-        $vehiculo->id_conductor =  $r->id_conductor;
+        $vehiculo->conductor_id =  $r->conductor_id;
         // $vehiculo->updated_at = date('Y-m-d h:m:s');
         $vehiculo->save();
         $vehiculo->ip =  $r->ip();
@@ -163,7 +161,7 @@ class VehiculoController extends Controller
     public function pdf(Vehiculo $vehiculo)
     {
 
-        $cars = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
+        $cars = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.conductor_id')
         ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
         ->join('users as u', 'u.id', '=', 'c.user_id')
         ->select('vehiculos.*', 'u.nombre as propietario')->get();
@@ -183,7 +181,7 @@ class VehiculoController extends Controller
         $vehiculo->modelo = $r->modelo;
         $vehiculo->anio = $r->anio;
         $vehiculo->estado =  $r->estado;
-        $vehiculo->id_conductor =  $r->propietario;
+        $vehiculo->conductor_id =  $r->propietario;
         $vehiculo->save();
 
         return redirect()->route('vehiculo.index');

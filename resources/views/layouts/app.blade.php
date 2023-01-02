@@ -125,13 +125,20 @@
                                     <i class="fa-solid fa-car-side"></i>
                                     <span>&#160 Postular a conductor</span>
                                 </a>
-
-
-
-                                
                             </li>
                         </ul>
                     </li>
+
+
+                    {{-- <li>
+                        <button id="btnVehiculo" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                            <i class="fa-regular fa-clipboard"></i>
+                            <a href="{{ route('solicitud.envio', Auth()->user()->id) }}">
+                                <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Envio</span>
+                            </a>
+                        </button>
+                        
+                    </li> --}}
 
                 </ul>
             </div>

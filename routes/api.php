@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::apiResource('conductor', ConducApi::class)->middleware('auth:sanctum');
     Route::apiResource('solicitud', SolicitudApi::class)->middleware('auth:sanctum');
     Route::post('solicitud/responder/{solicitud:id}', [SolicitudApi::class, 'responder']);
+    Route::get('solicitud/envio/{user:id}', [SolicitudApi::class, 'sendRequest'])->name('solicitud.envio');
     
     Route::get('/user-detail', [UserApi::class, 'getDetail'])
     ->name('api.get_detail')

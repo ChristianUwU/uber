@@ -46,4 +46,6 @@ Route::put('estado/{estado}/update', [VehiculoController::class, 'estado'])->nam
 Route::get('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
 Route::get('bitacora', [VehiculoController::class, 'bitacora'])->name('bitacora');
 
+Route::get('solicitud/envio/{user:id}', [SolicitudController::class, 'sendRequest'])->name('solicitud.envio');
+
 require __DIR__.'/auth.php';

@@ -158,7 +158,7 @@
                                                 <input type="date" name="anio" class="hidden"
                                                     value="{{ $cars->anio }}">
                                                 <input type="numeric" name="propietario" class="hidden"
-                                                    value="{{ $cars->id_conductor }}">
+                                                    value="{{ $cars->conductor_id }}">
 
                                                 @if ($cars->estado == 'HABILITADO')
                                                     <input type="text" name="estado" value="MANTENIMIENTO"
